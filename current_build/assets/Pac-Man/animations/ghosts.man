@@ -1,0 +1,6 @@
+ghost_red:32x32,1r2c,2f
+ghost_green:32x32,1r2c,2f
+ghost_purple:32x32,1r2c,2f
+ghost_orange:32x32,1r2c,2f
+ghost_afraid:32x32,1r2c,2f
+ghost_dead:32x32,1r2c,2f

@@ -1,0 +1,4 @@
+buffer:5x5
+Nado_right:32x32,1r1c,8f
+Nado_left:32x32,1r1c,8f
+Nado_forward:32x32,1r1c,8f

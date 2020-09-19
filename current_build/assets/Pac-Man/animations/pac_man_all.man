@@ -1,0 +1,10 @@
+buffer:5x5
+pac_man_dies:32x32,2r3c,6f
+pac_man:32x32,1r3c,3f
+ghost_red:24x30,1r2c,2f
+ghost_green:24x30,1r2c,2f
+ghost_purple:24x30,1r2c,2f
+ghost_orange:24x30,1r2c,2f
+ghost_afraid:24x30,1r2c,2f
+ghost_dead:24x30,1r2c,2f
+ghost_swap:24x30,2r4c,8f

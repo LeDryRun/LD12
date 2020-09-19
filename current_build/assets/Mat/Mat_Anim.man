@@ -1,0 +1,9 @@
+buffer:5x5
+Mat_Wdown:16x32,1r4c,4f
+Mat_Wright:16x32,1r4c,4f
+Mat_Wleft:16x32,1r4c,4f
+Mat_Wup:16x32,1r4c,4f
+Mat_Adown:23x29,1r1c,1f
+Mat_Aright:23x29,1r1c,1f
+Mat_Aleft:23x29,1r1c,1f
+Mat_Aup:23x29,1r1c,1f
