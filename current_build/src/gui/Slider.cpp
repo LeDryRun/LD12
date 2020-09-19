@@ -233,7 +233,7 @@ void Slider::update(Gamepad& gamepad){
 }
 
 
-double Slider::manually_set_value(double v_p){
+void Slider::manually_set_value(double v_p){
 	value=v_p;
 
 	x=((value/(max-min))*bar_width)-(width/2)+origin_x;

@@ -73,7 +73,7 @@ public:
 	bool check_highlighted(Mousey& mouse)override;
 	bool pushed_by_gamepad(Gamepad& gamepad)override;
 	void update(Gamepad& gamepad)override;
-	double manually_set_value(double v_p);
+	void manually_set_value(double v_p);
 
 
 	double get_value(){return value;}

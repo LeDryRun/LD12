@@ -13,9 +13,9 @@ public:
 	Point operator -(Point p_p){return Point(x-p_p.get_x(),y-p_p.get_y());}
 	Point operator *(int i_p){return Point(x*i_p,y*i_p);}
 	Point operator /(int i_p){return Point(x/i_p,y/i_p);}
-	Point operator *=(int d_p){x*=d_p;y*=d_p;}
-	Point operator +=(Point p_p){x+=p_p.get_x();y+=p_p.get_y();}
-	Point operator =(Point p_p){x=p_p.get_x();y=p_p.get_y();}
+	Point operator *=(int d_p) { return Point(x *= d_p, y *= d_p); }
+	Point operator +=(Point p_p) { return Point(x += p_p.get_x(), y += p_p.get_y()); }
+	Point operator =(Point p_p) { return Point(x = p_p.get_x(), y = p_p.get_y()); }
 
 	Point operator -(){return Point(-x,-y);}
 	bool operator ==(Point p_p){
