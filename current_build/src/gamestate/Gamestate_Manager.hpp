@@ -5,7 +5,7 @@
 #include "Gamestate.hpp"
 #include "states/Main_Menu_State.hpp"
 #include "states/Options_Menu_State.hpp"
-#include "states/Pac-Man/Pac_Man_State.hpp"
+#include "states/Tower_State.hpp"
 #include "states/Pause_Menu_State.hpp"
 #include "../audio/Audiohandler.hpp"
 #include "../input/Gamepad.hpp"
@@ -15,7 +15,7 @@ class Gamestate_Manager{
 private:
 	Gamestate* current_state;
 	Main_Menu_State* main_menu_state;
-	Pac_Man_State* pac_man_state;
+	Tower_State* tower_state;
 	Pause_Menu_State* pause_menu_state;
 	Options_Menu_State* options_menu_state;
 
@@ -40,7 +40,7 @@ public:
 	Gamestate_Manager();
 	~Gamestate_Manager(){
 		delete main_menu_state;
-		delete pac_man_state;
+		delete tower_state;
 		delete pause_menu_state;
 		delete options_menu_state;
 	}

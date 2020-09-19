@@ -2,7 +2,7 @@
 #define TOWER_STATE
 
 #include "../Gamestate.hpp"
-#include "../../entity/Point.hpp"
+#include "../../entity/Entity.hpp"
 #include "../../tilemap/Tilemap.hpp"
 #include "../../audio/Audiohandler.hpp"
 
@@ -24,8 +24,10 @@ public:
 	void check_gamepad(Gamepad&);
 
 
+	void update_layer_resolutions()override;
+
 	Tower_State(Imagehandler& imagehandler,Audiohandler& audiohandler);
 	~Tower_State(){}
-}
+};
 
 #endif

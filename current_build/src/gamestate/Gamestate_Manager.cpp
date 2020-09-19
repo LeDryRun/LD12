@@ -3,7 +3,7 @@
 
 
 void Gamestate_Manager::update_layer_resolutions(){
-	pac_man_state->update_layer_resolutions();
+	tower_state->update_layer_resolutions();
 	main_menu_state->update_layer_resolutions();
 	pause_menu_state->update_layer_resolutions();
 	options_menu_state->update_layer_resolutions();
@@ -15,10 +15,10 @@ bool Gamestate_Manager::set_state(Data_Packet data){
 		return false;
 	}else{
 		audiohandler.change_gamestate(state);
-		 if(state=="pac_man"){
+		 if(state=="tower_state"){
 			gamepad.set_button_mode(false);
 			gamepad.set_current_layer("core_layer");
-			current_state=pac_man_state;
+			current_state=tower_state;
 		}else if(state=="main_menu"){
 			gamepad.set_button_mode(true);
 			gamepad.set_current_layer("gui");
@@ -109,7 +109,7 @@ void Gamestate_Manager::update(sf::RenderWindow& window){
 
 Gamestate_Manager::Gamestate_Manager(){
 	main_menu_state = new Main_Menu_State(imagehandler);
-	pac_man_state = new Pac_Man_State(imagehandler,audiohandler);
+	tower_state = new Tower_State(imagehandler,audiohandler);
 	pause_menu_state = new Pause_Menu_State(imagehandler);
 	options_menu_state= new Options_Menu_State(imagehandler);
 	

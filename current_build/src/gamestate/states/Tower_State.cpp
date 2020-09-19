@@ -1,8 +1,9 @@
 #include "Tower_State.hpp"
 
 
-Tower_State::Tower_State(Imagehandler& imagehandler,Audiohandler& audiohandler){
+Tower_State::Tower_State(Imagehandler& imagehandler,Audiohandler& audiohandler):tower_layer("tower_layer"){
 	load_sprites(imagehandler);
+	state_name="tower_state";
 }
 
 
