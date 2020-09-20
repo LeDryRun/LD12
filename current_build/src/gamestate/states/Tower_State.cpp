@@ -1,24 +1,19 @@
 #include "Tower_State.hpp"
-#include "../../communal/Communal.hpp"
 
 
 Tower_State::Tower_State(Imagehandler& imagehandler,Audiohandler& audiohandler):tower_layer("tower_layer"){
-	int screen_size_x=1366;
-	int screen_size_y=768;
+	int screen_size_x=2000;
+	int screen_size_y=1100;
 	tower_layer.set_original_size(screen_size_x,screen_size_y);
 	tower_layer.set_original_center(screen_size_x/2,screen_size_y/2);
 	//std::cout<<"load map"<<std::endl;
-	utility_map.add_tileset("../assets/image/tilesets/utility_tileset","utility_tiles");
 	platform_map.load_from_file("../assets/maps/dry_run_map.map");
-	utility_map.load_from_file("../assets/maps/dry_run_map_utility.map");
 	//std::cout<<"set map location"<<std::endl;
-	platform_map.set_position(Point(0,0));
-	utility_map.set_position(Point(0,0));
+	platform_map.set_position(Point((screen_size_x/2)-(platform_map.get_tileset().get_tile_width()*platform_map.get_length_x()/2), 
+		(screen_size_y/2)-(platform_map.get_tileset().get_tile_height()*platform_map.get_length_y()/2)));
+
 	//std::cout<<"load sprites"<<std::endl;
-	flier.add_animation("Enemy_Fly_Flying");
-	flier.ref_animation(0).set_looping(true);
 	load_sprites(imagehandler);
-	flier.create(Point(-500,-500));
 	state_name="tower_state";
 
 	//std::cout<<"create player"<<std::endl;
@@ -26,12 +21,6 @@ Tower_State::Tower_State(Imagehandler& imagehandler,Audiohandler& audiohandler):
 	b.Tilemap_Entity::create(Point(0,0),platform_map);
 	//std::cout<<"done"<<std::endl;
 	update_layer_resolutions();
-	//std::cout<<"tower state"<<std::endl;
-
-	spawn_locations.push_back(Point(-200,-200));
-	spawn_locations.push_back(Point(2600,-200));
-	spawn_locations.push_back(Point(-200,1600));
-	spawn_locations.push_back(Point(2600,1600));
 }
 
 
@@ -46,12 +35,6 @@ void Tower_State::load_sprites(Imagehandler& imagehandler){
 	imagehandler.load_sprite(background,"core_game_background");
 	player.load_animations(imagehandler);
 	b.load_animations(imagehandler);
-	flier.load_animations(imagehandler);
-	imagehandler.load_sprite(lizerd,"lizerd");
-	lizerd.scale(7,7);
-	lizerd.setPosition(-1900,-100);
-	imagehandler.load_sprite(hotbar,"hotbar");
-	hotbar.setPosition(500,620);
 }
 
 
@@ -60,37 +43,7 @@ void Tower_State::update(Mousey& mouse, Keyblade& keyboard, Gamepad& gamepad){
 	Gamestate::update_gui_layer(mouse,keyboard,gamepad);
 	tower_layer.setCenter(player.get_center().get_x(),player.get_center().get_y());
 	mouse.set_layer(tower_layer);
-
-	if(wave_timer==0){
-		wave_timer=wave_timer_max;//*difficulty_level;
-		for(int i=0;i<difficulty_level*10;i++){
-			int r=random(0,1);
-			Enemy_Base* e;
-			if(r=1){
-				e=new Flier_Enemy;
-				*e=flier;
-			}else{
-				e=new Flier_Enemy;
-				*e=flier;
-			}
-
-			r=random(0,spawn_locations.size()-1);
-			e->create(spawn_locations.at(r));
-			enemies.push_back(e);
-		}
-	}else{
-		wave_timer--;
-	}
-
-
-	utility_map.update();
-
-	for(int i=0;i<(int)enemies.size();i++){
-		enemies.at(i)->update();
-		enemies.at(i)->animate();
-	};
-
-	player.update(platform_map,utility_map,mouse,keyboard);
+	player.update(platform_map,mouse,keyboard);
 	if(player.is_firing_bullet()){
 		b.create(player.get_bullet_position(),player.get_bulletv_x(),player.get_bulletv_y(),1,20);
 		bullets.push_back(b);
@@ -118,7 +71,6 @@ void Tower_State::update(Mousey& mouse, Keyblade& keyboard, Gamepad& gamepad){
 
 	mouse.set_layer(background_layer);
 
-
 	Duration_Check::stop("-Tower update");
 }
 
@@ -128,15 +80,9 @@ void Tower_State::render(sf::RenderWindow& window){
 	Duration_Check::start("-Tower render");
 	Gamestate::render_background_layer(window);
 	window.setView(tower_layer);
-	window.draw(lizerd);
-	window.draw(utility_map);
+
 	window.draw(platform_map);
 	window.draw(player);
-
-	for(int i=0;i<(int)enemies.size();i++){
-		window.draw(*enemies.at(i));
-	}
-
 	player.animate();
 
 	for(int i=0;i<(int)bullets.size();i++){
@@ -145,9 +91,6 @@ void Tower_State::render(sf::RenderWindow& window){
 		bullets.at(i).animate();
 	}
 	Gamestate::render_gui_layer(window);
-	if(player.get_mode()=="placing"){
-		window.draw(hotbar);
-	}
 	Duration_Check::stop("-Tower render");
 }
 void Tower_State:: execute_data(Data_Packet data){
@@ -157,24 +100,16 @@ void Tower_State::check_keyboard(Keyblade& keyboard){
 	if(keyboard.get_key('E').was_just_pressed()){
 		send_data.push_back(Data_Packet("set_state",MANAGER,{"pause_menu"}));
 	}
-	if(keyboard.get_key('q').was_just_pressed()){
-		if(zoom){
-			int screen_size_x=5000;
-			int screen_size_y=2500;
-			tower_layer.set_original_size(screen_size_x,screen_size_y);
-			tower_layer.set_original_center(screen_size_x/2,screen_size_y/2);
-			zoom=false;
-			player.lock_player_controls(true);
-		}else{
-			int screen_size_x=1366;
-			int screen_size_y=768;
-			tower_layer.set_original_size(screen_size_x,screen_size_y);
-			tower_layer.set_original_center(screen_size_x/2,screen_size_y/2);
-			zoom=true;
-			player.lock_player_controls(false);
-		}
-		
-	}
+/*
+	if(keyboard.get_key('w').is_pressed()){
+		pac_man.set_input_dir(Cardinal::North);
+	}else if(keyboard.get_key('s').is_pressed()){
+		pac_man.set_input_dir(Cardinal::South);
+	}else if(keyboard.get_key('a').is_pressed()){
+		pac_man.set_input_dir(Cardinal::West);
+	}else if(keyboard.get_key('d').is_pressed()){
+		pac_man.set_input_dir(Cardinal::East);
+	}*/
 }
 
 void Tower_State::check_gamepad(Gamepad& gamepad){

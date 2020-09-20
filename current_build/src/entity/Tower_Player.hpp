@@ -5,7 +5,6 @@
 #include "../audio/Noise_Maker.hpp"
 class Mousey;
 class Keyblade;
-class UtilityMap;
 
 class Tower_Player: public Tilemap_Entity, public Noise_Maker{
 private:
@@ -25,8 +24,6 @@ private:
 
 	bool facing_left=false;
 
-	bool lock_controls=false;
-
 	bool firing_bullet=false;
 	float bullet_vector_x;
 	float bullet_vector_y;
@@ -45,28 +42,21 @@ private:
 	Animation invalid;
 	Animation reticule;
 	Animation bullet;
-	Animation wrench;
 
 	std::string mode="shooting";
-
-	std::string tile_building="wall";
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:
 	Tower_Player();
 
-	void update(Tilemap&,UtilityMap&, Mousey&, Keyblade&);
+	void update(Tilemap&, Mousey&, Keyblade&);
 	void load_animations(Imagehandler&) override;
 
 	bool is_firing_bullet(){return firing_bullet;}
 	float get_bulletv_x(){return bullet_vector_x;}
 	float get_bulletv_y(){return bullet_vector_y;}
 	Point get_bullet_position(){return bullet_position;}
-
-	void lock_player_controls(bool b_p){lock_controls=b_p;}
-
-	std::string get_mode(){return mode;}
 };
 
 

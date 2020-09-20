@@ -11,12 +11,10 @@ void Imagehandler::load(){
 	error_texture.setSmooth(true);
 	error_animation.load("../assets/error/error_animation.png",32,32,4,0,"error");
 
-	lizerd.loadFromFile("../assets/image/boy/lizerd.png");
-	hotbar.loadFromFile("../assets/image/hotbar.png");
-
 	//pac_man.load("../assets/Pac-Man/animations/pac-man.png",32,32,2,1,"pac-man");
 	//ghosts.load("../assets/Pac-Man/animations/ghosts.png",32,32,2,6,"ghosts");
 	//pac_man_dies.load("../assets/Pac-Man/animations/pac-man_dies.png",32,32,6,1,"pac-man_dies");
+
 
 	menu_background.loadFromFile("../assets/image/menu_background.png");
 	menu_background.setSmooth(true);
@@ -53,7 +51,6 @@ void Imagehandler::load(){
 	load_animation_sheet("../assets/image/animations/Player");
 	load_animation_sheet("../assets/image/animations/Effects");
 	load_animation_sheet("../assets/image/animations/reticule");
-	load_animation_sheet("../assets/enemies/Enemy_Fly");
 }
 
 void Imagehandler::load_text_input_box(Text_Input_Box& tib){
@@ -73,10 +70,6 @@ void Imagehandler::load_sprite(sf::Sprite& sprite, std::string name_p){
 		sprite.setTexture(core_game_background,true);
 	}else if(name_p=="options_menu_background"){
 		sprite.setTexture(menu_background,true);
-	}else if(name_p=="lizerd"){
-		sprite.setTexture(lizerd,true);
-	}else if(name_p=="hotbar"){
-		sprite.setTexture(hotbar,true);
 	}
 	else{
 		std::cout<<"\nERROR: sprite not found: "<<name_p<<std::endl;
@@ -84,6 +77,33 @@ void Imagehandler::load_sprite(sf::Sprite& sprite, std::string name_p){
 	}
 }
 
+/*void Imagehandler::load_animation(Animation& animation, std::string name_p){
+	if(name_p=="pac-man"){
+		pac_man.load_animation(animation,0);
+	}else if(name_p=="pac-man_dies"){
+		pac_man_dies.load_animation(animation,0);
+		animation.set_looping(false);
+	}else if(name_p=="ghost_red"){
+		ghosts.load_animation(animation,0);
+	}else if(name_p=="ghost_green"){
+		ghosts.load_animation(animation,1);
+	}else if(name_p=="ghost_orange"){
+		ghosts.load_animation(animation,2);
+	}else if(name_p=="ghost_purple"){
+		ghosts.load_animation(animation,3);
+	}else if(name_p=="ghost_afraid"){
+		ghosts.load_animation(animation,4);
+	}else if(name_p=="ghost_dead"){
+		ghosts.load_animation(animation,5);
+	}else if(name_p=="explosion"){
+		error_animation.load_animation(animation,0);
+		animation.set_looping(false);
+	}else{
+		std::cout<<"\nERROR: animation not found: "<<name_p<<"\n";
+		error_animation.load_animation(animation,0);
+	}
+}
+*/
 void Imagehandler::load_animation(Animation& animation){
 	for(int i=0;i<(int)animation_sheets.size();i++){
 		if(animation_sheets.at(i)->check_for_blueprint(animation)){
