@@ -3,12 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include "../image/Layer.hpp"
+#include <iostream>
 
 class Mousey: public sf::Mouse{
 private:
 	bool just_pressed= false;
 	bool pressed=false;
 	bool held=false;
+
+	bool right_just_pressed= false;
+	bool right_pressed=false;
+	bool right_held=false;
 
 	bool active=true;
 
@@ -44,6 +49,8 @@ public:
 
 	bool is_clicked(){return just_pressed;}
 	bool is_pressed(){return pressed;}
+	bool is_right_clicked(){return right_just_pressed;}
+	bool is_right_pressed(){return right_pressed;}
 	void update(sf::RenderWindow& window);
 	void update_jp();
 

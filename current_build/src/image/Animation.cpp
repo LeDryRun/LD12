@@ -59,19 +59,30 @@ void Animation::move(Point p_p){
 		sprites[i].move(p_p.get_x(),p_p.get_y());
 	}
 }
+
+
+void Animation::set_h_mirror(bool b_p){
+	if(mirrored!=b_p){
+		mirrored=b_p;
+		for(int i=0;i<number_of_frames;i++){
+			sprites[i].scale(-1.0f,1.0f);
+		}
+	}
+}
 void Animation::animate(){
 	if(!finished){
-		int actual_fps=Window_Manager::get_execution_fps();
+		float actual_fps=Window_Manager::get_execution_fps();
 		if(recorded_fps!=actual_fps){
 			fps_timer=fps_timer*(actual_fps/recorded_fps);
 		}
-		if(fps_timer==0){
+		if(fps_timer<=0){
 			current_frame++;
 			recorded_fps=actual_fps;
-			fps_timer=recorded_fps/desired_fps;
-		}else{
-			fps_timer--;
+			fps_timer=((float)recorded_fps/(float)desired_fps);
+			//std::cout<<name<<"rc"<<recorded_fps<<"/ds"<<desired_fps<<"=t"<<fps_timer<<std::endl;
 		}
+		fps_timer--;
+		
 
 		if(current_frame==number_of_frames-1){
 			if(!loop){

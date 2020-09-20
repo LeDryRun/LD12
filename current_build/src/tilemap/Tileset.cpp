@@ -57,7 +57,6 @@ void Tileset::load_from_file(){
 	//for(int i=0; i<(int)tileset.size();i++){
 	//	std::cout<<tileset.at(i)<<std::endl;
 	//}
-
 }
 
 
