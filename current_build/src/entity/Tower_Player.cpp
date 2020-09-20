@@ -6,7 +6,7 @@
 #include <math.h>
 
 
-Tower_Player::Tower_Player():valid("valid"),invalid("invalid"),reticule("reticule"){
+Tower_Player::Tower_Player():valid("valid"),invalid("invalid"),reticule("reticule"),bullet("bullet"){
 	set_state_of_origin("tower_state");
 	gravity_acceleration=-1.6f;
 	jump_impulse=16;
@@ -22,6 +22,8 @@ void Tower_Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		}else{
 			target.draw(invalid.get_current_frame());
 		}
+	}else{
+		target.draw(bullet.get_current_frame());
 	}
 }
 
@@ -44,9 +46,11 @@ void Tower_Player::load_animations(Imagehandler& imagehandler){
 	imagehandler.load_animation(valid);
 	imagehandler.load_animation(invalid);
 	imagehandler.load_animation(reticule);
+	imagehandler.load_animation(bullet);
 	valid.set_looping(true);
 	invalid.set_looping(true);
 	reticule.set_looping(true);
+	bullet.set_looping(true);
 }
 
 
@@ -90,6 +94,7 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 					if(tilemap.get_tile(mouse_coords).get_type_s()=="empty"){
 						placing_valid=true;
 						if(mouse.is_clicked()){
+							build_timer=build_timer_max;
 							tilemap.set_tile_type(mouse_coords,"wall");
 						}
 					}else if(mouse.is_right_clicked()){
@@ -119,11 +124,11 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 		//std::cout<<"a"<<std::endl;
 		dir=Cardinal::West;
 		movement=movement+(dir*speed);
-		for(int i=0;i<(int)animations.size();i++){
-			animations.at(i).set_h_mirror(false);
-		}
 		if(check_tilemap_collision(tilemap)){
 			wall_slide=true;
+		}
+		if(!wall_slide){
+			facing_left=true;
 		}
 	}
 	if(keyboard.get_key('d').is_pressed()){
@@ -136,7 +141,15 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 		if(check_tilemap_collision(tilemap)){
 			wall_slide=true;
 		}
+		if(!wall_slide){
+			facing_left=false;
+		}
 	}
+	for(int i=0;i<(int)animations.size();i++){
+		animations.at(i).set_h_mirror(!facing_left);
+	}
+
+
 	if(keyboard.get_key(' ').is_pressed()){
 		//std::cout<<"space"<<std::endl;
 		if(grounded /*&& !anim_wait*/){
@@ -224,4 +237,21 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 		//std::cout<<"grounded"<<std::endl;
 	}
 	//movement=Point(0,0);
+
+
+	if(facing_left){
+		if(wall_slide){
+			bullet_position=position+Point(54,40);
+		}else{
+			bullet_position=position+Point(47,13);
+		}
+	}else{
+		if(wall_slide){
+			bullet_position=position+Point(10,40);
+		}else{
+			bullet_position=position+Point(17,13);
+		}
+	}
+	bullet.set_position(bullet_position);
+	bullet.animate();
 }
