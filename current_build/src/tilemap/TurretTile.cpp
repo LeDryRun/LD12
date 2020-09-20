@@ -70,8 +70,6 @@ void TurretTile::update(std::vector<Enemy_Base*> enemies)
 		m_bulletv_x = bulletv_x / target_rss;
 		m_bulletv_y = bulletv_y / target_rss;
 
-		std::cout << m_bulletv_x << " " << m_bulletv_y << " " << target_rss << std::endl;
-
 		if (m_bullet_cooldown_timer <= 0) {
 			m_is_firing = true;
 			m_bullet_cooldown_timer = m_bullet_cooldown_timer_max;
