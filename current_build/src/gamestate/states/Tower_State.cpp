@@ -9,7 +9,7 @@ Tower_State::Tower_State(Imagehandler& imagehandler,Audiohandler& audiohandler):
 	tower_layer.set_original_size(screen_size_x,screen_size_y);
 	tower_layer.set_original_center(screen_size_x/2,screen_size_y/2);
 	//std::cout<<"load map"<<std::endl;
-	utility_map.add_tileset("../assets/image/tilesets/tower_tileset_utility","utility_tiles");
+	utility_map.add_tileset("../assets/image/tilesets/utility_tileset","utility_tiles");
 	platform_map.load_from_file("../assets/maps/dry_run_map.map");
 	utility_map.load_from_file("../assets/maps/dry_run_map_utility.map");
 	//std::cout<<"set map location"<<std::endl;
@@ -98,18 +98,16 @@ void Tower_State::update(Mousey& mouse, Keyblade& keyboard, Gamepad& gamepad){
 		//std::cout<<bullets.at(bullets.size()-1).get_position().get_x()<<","<<bullets.at(bullets.size()-1).get_position().get_y()<<std::endl;
 	}
 
-	for (int i = 0; i < utility_map.get_map().size(); i++)
-	{
-		if (utility_map.get_map().at(i)->get_tile_type() == kTurret)
-		{
-			TurretTile* current_tile = (TurretTile*)utility_map.get_map().at(i);
-			if (current_tile->is_firing_bullet())
-			{
-				b.create(current_tile->get_bullet_position(), current_tile->get_bulletv_x(), current_tile->get_bulletv_y(), 1, 20);
+	for(int i=0;i<utility_map.get_map().size();i++){
+		if(utility_map.get_map().at(i)->get_tile_type()==kTurret){
+			TurretTile* current_tile=(TurretTile*)utility_map.get_map().at(i);
+			if(current_tile->is_firing_bullet()){
+				b.create(current_tile->get_bullet_position(),current_tile->get_bulletv_x(),current_tile->get_bulletv_y(),1,20);
 				bullets.push_back(b);
 			}
 		}
 	}
+
 
 	for(auto it=bullets.begin();it!=bullets.end();){
 		if(it->get_destruct_timer()==0){
@@ -143,8 +141,8 @@ void Tower_State::render(sf::RenderWindow& window){
 	Gamestate::render_background_layer(window);
 	window.setView(tower_layer);
 	window.draw(lizerd);
-	window.draw(platform_map);
 	window.draw(utility_map);
+	window.draw(platform_map);
 	window.draw(player);
 
 	for(int i=0;i<(int)enemies.size();i++){
