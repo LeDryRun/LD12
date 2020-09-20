@@ -43,9 +43,14 @@ void Imagehandler::load(){
 	}
 
 	Tilemap::add_tileset("../assets/Pac-Man/tilesets/pac_man_tiles","pac_man_tiles");
+	Tilemap::add_tileset("../assets/image/tilesets/tower_tileset","tower_tileset");
 
 	load_animation_sheet("../assets/Pac-Man/animations/pac_man_all");
-	load_animation_sheet("../assets/Mat/Mat_Anim");
+	load_animation_sheet("../assets/image/animations/bullet");
+	load_animation_sheet("../assets/image/animations/valid");
+	load_animation_sheet("../assets/image/animations/Player");
+	load_animation_sheet("../assets/image/animations/Effects");
+	load_animation_sheet("../assets/image/animations/reticule");
 }
 
 void Imagehandler::load_text_input_box(Text_Input_Box& tib){

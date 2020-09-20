@@ -94,6 +94,8 @@ void Tilemap::set_tile_type(int x_p, int y_p, int tile_type_p){
 
 	if(tile_type_p<tileset.get_solid_threshold()){
 		ref_tile(x_p,y_p).set_solid(true);
+	}else{
+		ref_tile(x_p,y_p).set_solid(false);
 	}
 
 	if(tile_type_p>tileset.get_obj_threshold()){
@@ -108,6 +110,8 @@ void Tilemap::set_tile_type(int x_p, int y_p, int tile_type_p){
 	quad[1].texCoords=sf::Vector2f((tu+1)*tileset.get_tile_width(),tv*tileset.get_tile_height());
 	quad[2].texCoords=sf::Vector2f((tu+1)*tileset.get_tile_width(),(tv+1)*tileset.get_tile_height());
 	quad[3].texCoords=sf::Vector2f(tu*tileset.get_tile_width(),(tv+1)*tileset.get_tile_height());
+
+
 
 }
 

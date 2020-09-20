@@ -38,29 +38,29 @@ Layer::Layer(std::string n_p){
 
 double Layer::window_to_layer_x(double x_p){
 	if(display_type==STRETCH_TO_FIT){
-		return (x_p/Xs)+(getCenter().x-original_center_x);
+		return (((x_p/Xs)/default_res_x)*original_size_x)+(getCenter().x-original_center_x);
 	}else if(display_type==SMART_SCALE){
 		if(Xs>Ys){
-			return ((x_p-black_bar_size_x)/Ys)+(getCenter().x-original_center_x);
+			return ((((x_p-black_bar_size_x)/Ys)/default_res_x)*original_size_x)+(getCenter().x-original_center_x);
 		}else{
-			return (x_p/Xs)+(getCenter().x-original_center_x);
+			return (((x_p/Xs)/default_res_x)*original_size_x)+(getCenter().x-original_center_x);
 		}
 	}else{
-		return (x_p-black_bar_size_x);
+		return ((x_p-black_bar_size_x)/default_res_x)*original_size_x;
 	}
 }
 
 double Layer::window_to_layer_y(double y_p){
 	if(display_type==STRETCH_TO_FIT){
-		return (y_p/Ys)+(getCenter().y-original_center_y);
+		return (((y_p/Ys)/default_res_y)*original_size_y)+(getCenter().y-original_center_y);
 	}else if(display_type==SMART_SCALE){
 		if(Ys>Xs){
-			return ((y_p-black_bar_size_y)/Xs)+(getCenter().y-original_center_y);
+			return ((((y_p-black_bar_size_y)/Xs)/default_res_y)*original_size_y)+(getCenter().y-original_center_y);
 		}else{
-			return (y_p/Ys)+(getCenter().y-original_center_y);
+			return (((y_p/Ys)/default_res_y)*original_size_y)+(getCenter().y-original_center_y);
 		}
 	}else{
-		return (y_p-black_bar_size_y);
+		return ((y_p-black_bar_size_y)/default_res_y)*original_size_y;
 	}
 }
 

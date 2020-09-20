@@ -25,14 +25,14 @@ private:
 	int buffer_y=0;
 
 	int rotation=0;
+	bool mirrored=false;
 
 	bool loop=false;
 	bool finished=false;
 
-	int fps_timer=0;
-	int fps_timer_max=5;
-	int desired_fps=12;
-	int recorded_fps=60;
+	float fps_timer=0;
+	float desired_fps=12.0f;
+	float recorded_fps=60.0f;
 
 	int current_frame=0;
 	std::vector<sf::Sprite> sprites;
@@ -46,6 +46,9 @@ public:
 	void load(sf::Texture& ,Animation_Blueprint);
 
 	void set_position(int,int);
+	void set_position(Point p_p){
+		set_position(p_p.get_x(),p_p.get_y());
+	}
 	void move(int,int);
 
 	void move(Point p_p);
@@ -53,12 +56,13 @@ public:
 	int get_frame_width(){return frame_width;}
 	int get_frame_height(){return frame_height;}
 
-	void set_desired_fps(int i_p){desired_fps=i_p;}
+	void set_desired_fps(float i_p){desired_fps=i_p;}
 
 	bool is_finished(){return finished;}
 	void start(){finished=false;current_frame=0;}
 
 	void set_looping(bool l_p){loop=l_p;}
+	bool is_looping(){return loop;}
 
 	void set_rotation(int r_p){
 		rotation=r_p;
@@ -66,6 +70,8 @@ public:
 			sprites[i].setRotation(rotation);
 		}
 	}
+
+	void set_h_mirror(bool b_p);
 
 	void animate();
 	sf::Sprite get_current_frame()const;

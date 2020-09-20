@@ -21,8 +21,6 @@ protected:
 
 	Point movement=Point(0,0);
 
-	std::vector<Point> tiles_colliding;
-
 	Hitbox projected_hitbox;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -48,6 +46,7 @@ public:
 
 	void set_position(Point p_p);
 	Point get_position(){return position;}
+	Point get_center(){return position+Point(hitbox.get_width()/2,hitbox.get_height()/2);}
 
 	virtual void move();
 	virtual void load_animations(Imagehandler&);

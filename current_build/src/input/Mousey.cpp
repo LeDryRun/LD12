@@ -4,6 +4,7 @@
 
 void Mousey::update(sf::RenderWindow& window){
 	pressed=isButtonPressed(Mouse::Left);
+	right_pressed=isButtonPressed(Mouse::Right);
 
 	window_x=getPosition(window).x;
 	window_y=getPosition(window).y;
@@ -19,6 +20,18 @@ void Mousey::update_jp(){
 	}
 	if(!pressed){
 		held=false;
+	}
+
+
+	if(right_just_pressed){
+		right_just_pressed=false;
+		right_held=true;
+	}
+	if(right_pressed && !right_held){
+		right_just_pressed=true;
+	}
+	if(!right_pressed){
+		right_held=false;
 	}
 }
 

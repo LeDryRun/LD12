@@ -4,9 +4,13 @@
 
 
 void Tilemap_Entity::create(Point p_p, Tilemap t_p){
+	//std::cout<<"hitbox"<<std::endl;
 	hitbox.create(0,0,animations.at(0).get_frame_width(),animations.at(0).get_frame_height());
+	//std::cout<<"tile_size"<<std::endl;
 	tile_size= Point(t_p.get_tileset().get_tile_width(),t_p.get_tileset().get_tile_height());
+	//std::cout<<"set position"<<std::endl;
 	set_position(p_p);
+	//std::cout<<"done?"<<std::endl;
 }
 
 
@@ -33,16 +37,16 @@ void Tilemap_Entity::tilemap_collide_physics(Tilemap& tilemap){
 				projected_hitbox=hitbox;
 
 				if(check_tile.is_solid()){
-					//std::cout<<Point(current_tile+Point(i,j)).get_x()<<","<<Point(current_tile+Point(i,j)).get_y()<<"|";
 					projected_hitbox.move(0,movement.get_y());
 
-					/*std::cout<<projected_hitbox.get_x()<<","<<projected_hitbox.get_y()<<":"<<projected_hitbox.get_width()<<"X"<<projected_hitbox.get_height()<<"VS";
+					if(projected_hitbox.is_colliding(check_tile.get_hitbox())){
+					/*std::cout<<Point(current_tile+Point(i,j)).get_x()<<","<<Point(current_tile+Point(i,j)).get_y()<<"|";
+					std::cout<<projected_hitbox.get_x()<<","<<projected_hitbox.get_y()<<":"<<projected_hitbox.get_width()<<"X"<<projected_hitbox.get_height()<<" VS ";
 					std::cout<<check_tile.get_map_x()<<","<<check_tile.get_map_y()<<"@";
 					std::cout<<check_tile.get_hitbox().get_x()<<","<<check_tile.get_hitbox().get_y()<<":";
-					std::cout<<check_tile.get_hitbox().get_width()<<"X"<<check_tile.get_hitbox().get_height()<<std::endl;*/
-					if(projected_hitbox.is_colliding(check_tile.get_hitbox())){
+					std::cout<<check_tile.get_hitbox().get_width()<<"X"<<check_tile.get_hitbox().get_height()<<std::endl<<std::endl;*/
 						movement.set_y(0);
-						if(check_tile.get_hitbox().get_y()>hitbox.get_y()){
+						if(check_tile.get_hitbox().get_y()>projected_hitbox.get_y()){
 							set_position(Point(position.get_x(),check_tile.get_hitbox().get_y()-hitbox.get_height()+hitbox_offset.get_y()));
 						}else{
 							set_position(Point(position.get_x(),check_tile.get_hitbox().get_y()+check_tile.get_hitbox().get_height()+hitbox_offset.get_y()));
@@ -52,8 +56,13 @@ void Tilemap_Entity::tilemap_collide_physics(Tilemap& tilemap){
 					projected_hitbox.move(movement.get_x(),0);
 
 					if(projected_hitbox.is_colliding(check_tile.get_hitbox())){
+					/*std::cout<<Point(current_tile+Point(i,j)).get_x()<<","<<Point(current_tile+Point(i,j)).get_y()<<"|";
+					std::cout<<projected_hitbox.get_x()<<","<<projected_hitbox.get_y()<<":"<<projected_hitbox.get_width()<<"X"<<projected_hitbox.get_height()<<" VS ";
+					std::cout<<check_tile.get_map_x()<<","<<check_tile.get_map_y()<<"@";
+					std::cout<<check_tile.get_hitbox().get_x()<<","<<check_tile.get_hitbox().get_y()<<":";
+					std::cout<<check_tile.get_hitbox().get_width()<<"X"<<check_tile.get_hitbox().get_height()<<std::endl<<std::endl;*/
 						movement.set_x(0);
-						if(check_tile.get_hitbox().get_x()>hitbox.get_x()){
+						if(check_tile.get_hitbox().get_x()>projected_hitbox.get_x()){
 							set_position(Point(check_tile.get_hitbox().get_x()-hitbox.get_width()+hitbox_offset.get_x(),position.get_y()));
 						}else{
 							set_position(Point(check_tile.get_hitbox().get_x()+check_tile.get_hitbox().get_width()+hitbox_offset.get_x(),position.get_y()));
@@ -104,8 +113,15 @@ bool Tilemap_Entity::check_tilemap_collision(Tilemap& tilemap){
 				projected_hitbox=hitbox;
 
 				if(check_tile.is_solid()){  //if you want to check for something other than solidity put it here
+
+
 					projected_hitbox.move(0,movement.get_y());
 
+					//std::cout<<Point(current_tile+Point(i,j)).get_x()<<","<<Point(current_tile+Point(i,j)).get_y()<<"|";
+					//std::cout<<projected_hitbox.get_x()<<","<<projected_hitbox.get_y()<<":"<<projected_hitbox.get_width()<<"X"<<projected_hitbox.get_height()<<"  VS  ";
+					//std::cout<<check_tile.get_map_x()<<","<<check_tile.get_map_y()<<"@";
+					//std::cout<<check_tile.get_hitbox().get_x()<<","<<check_tile.get_hitbox().get_y()<<":";
+					//std::cout<<check_tile.get_hitbox().get_width()<<"X"<<check_tile.get_hitbox().get_height()<<std::endl;
 					if(projected_hitbox.is_colliding(check_tile.get_hitbox())){
 						return true;
 					}
@@ -126,6 +142,4 @@ bool Tilemap_Entity::check_tilemap_collision(Tilemap& tilemap){
 		}
 	}
 	return false;
-
 }
-

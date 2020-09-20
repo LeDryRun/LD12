@@ -2,9 +2,10 @@
 #define TOWER_STATE
 
 #include "../Gamestate.hpp"
-#include "../../entity/Entity.hpp"
+#include "../../entity/Tower_Player.hpp"
 #include "../../tilemap/Tilemap.hpp"
 #include "../../audio/Audiohandler.hpp"
+#include "../../entity/Bullet.hpp"
 
 
 class Tower_State: public Gamestate{
@@ -14,7 +15,10 @@ private:
 	Tilemap utility_map;
 	Tilemap platform_map;
 
-	Entity player;
+	Tower_Player player;
+
+	std::vector<Bullet> bullets;
+	Bullet b;
 public:
 	void update(Mousey&,Keyblade&,Gamepad&)override;
 	void render(sf::RenderWindow& window)override;
