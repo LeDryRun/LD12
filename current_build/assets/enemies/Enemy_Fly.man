@@ -1,0 +1,2 @@
+Enemy_Fly_Flying:64x48,1r3c,3f
+Enemy_Fly_Attack:64x48,1r3c,3f
