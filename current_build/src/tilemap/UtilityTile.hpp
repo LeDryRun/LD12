@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "../entity/Point.hpp"
 #include "Tileset.hpp"
+#include "../entity/Enemies/Flier_Enemy.hpp"
 
 enum UtilityTileType
 {
@@ -32,7 +33,7 @@ public:
 
 	static UtilityTile* load(int, int, Tileset, std::string);
 
-	virtual void update();
+	virtual void update(std::vector<Enemy_Base*> enemies);
 
 	int get_map_x();
 	int get_map_y();

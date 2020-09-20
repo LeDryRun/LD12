@@ -1,5 +1,5 @@
-#ifndef RESOURECETILE_HPP
-#define RESOURECETILE_HPP
+#ifndef RESOURCETILE_HPP
+#define RESOURCETILE_HPP
 
 #include "UtilityTile.hpp"
 
@@ -18,11 +18,11 @@ public:
 	ResourceTile();
 	UtilityTileType get_tile_type();
 	~ResourceTile();
-	void update();
+	void update(std::vector<Enemy_Base*> enemies);
 
 	int get_resourece_count();
 	int withdraw_resources();
 	virtual std::string to_string();
 };
 
-#endif RESOURECETILE_HPP //RESOURECETILE_HPP
+#endif RESOURCETILE_HPP //RESOURCETILE_HPP

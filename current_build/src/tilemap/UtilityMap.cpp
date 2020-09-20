@@ -77,10 +77,10 @@ void UtilityMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(*utility_map.at(i));
 }
 
-void UtilityMap::update()
+void UtilityMap::update(std::vector<Enemy_Base*> enemies)
 {
 	for (int i = 0; i < utility_map.size(); i++)
-		utility_map.at(i)->update();
+		utility_map.at(i)->update(enemies);
 }
 
 void UtilityMap::load_from_file(std::string file_p)

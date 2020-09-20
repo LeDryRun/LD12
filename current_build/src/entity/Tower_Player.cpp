@@ -63,6 +63,8 @@ void Tower_Player::load_animations(Imagehandler& imagehandler){
 
 
 void Tower_Player::update(Tilemap&  tilemap, UtilityMap& utility_map, Mousey&  mouse, Keyblade& keyboard){
+
+	std::cout << "Player: " << position.get_x() << std::endl;
 if(!lock_controls){
 	if(keyboard.get_key('e').was_just_pressed()){
 		if(mode=="shooting"){
