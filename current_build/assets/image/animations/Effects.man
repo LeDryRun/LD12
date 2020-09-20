@@ -1,0 +1,2 @@
+Effects_Attack:16x16,1r4c,4f
+Effects_Build:16x16,1r4c,4f

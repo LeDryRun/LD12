@@ -1,4 +1,5 @@
 #include "Flier_Enemy.hpp"
+#include <math.h>
 
 Flier_Enemy::Flier_Enemy()
 {

@@ -1,0 +1,2 @@
+bullet:20x20,1r4c,4f
+bullet_impact:20x20,2r4c,6f

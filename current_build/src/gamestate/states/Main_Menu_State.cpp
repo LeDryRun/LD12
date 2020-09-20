@@ -8,6 +8,7 @@ Main_Menu_State::Main_Menu_State(Imagehandler& imagehandler){
 	gui_layer_buttons.push_back(std::make_unique<Text_Button>(Text_Button("close", 608, 500, Data_Packet("close",WINDOW),-1,1,-1,-1)));
 	load_sprites(imagehandler);
 	state_name="main_menu";
+	//gui_layer.setCenter(300,400);
 }
 
 void Main_Menu_State::load_sprites(Imagehandler& imagehandler){

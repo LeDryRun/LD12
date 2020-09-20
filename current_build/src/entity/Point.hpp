@@ -33,6 +33,9 @@ public:
 	void set_y(int y_p){y=y_p;}
 	void set_point(int x_p, int y_p){set_x(x_p);set_y(y_p);}
 	void set_point(Point new_p){set_x(new_p.get_x());set_y(new_p.get_y());}
+
+	void move(int x_p, int y_p){x+=x_p;y+=y_p;}
+	void move(Point p_p){x+=p_p.get_x();y+=p_p.get_y();}
 };
 
 namespace Cardinal{
