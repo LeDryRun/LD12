@@ -20,7 +20,7 @@ ResourceTile::~ResourceTile()
 {
 }
 
-void ResourceTile::update()
+void ResourceTile::update(std::vector<Enemy_Base*> enemies)
 {
 	m_resourece_timer++;
 	if (m_resourece_timer >= kTimerMaxTick) {

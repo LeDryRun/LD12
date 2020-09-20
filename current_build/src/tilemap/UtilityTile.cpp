@@ -8,7 +8,7 @@ void UtilityTile::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(m_sprite);
 }
 
-void UtilityTile::update()
+void UtilityTile::update(std::vector<Enemy_Base*> enemies)
 {
 
 }

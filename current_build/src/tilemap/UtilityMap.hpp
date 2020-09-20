@@ -28,7 +28,7 @@ private:
 public:
 	UtilityMap();
 	~UtilityMap();
-	void update();
+	void update(std::vector<Enemy_Base*> enemies);
 
 	void load_from_file(std::string);
 
@@ -75,6 +75,7 @@ public:
 
 	void add_tileset(std::string, std::string);
 
+	std::vector<UtilityTile*> get_map() { return utility_map;  }
 
 	std::vector<Point> find_path(Point start, Point end);
 
