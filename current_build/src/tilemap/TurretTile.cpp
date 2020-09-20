@@ -38,7 +38,7 @@ void TurretTile::update()
 
 UtilityTileType TurretTile::get_tile_type()
 {
-	return kTurret;
+	return tile_type;
 }
 
 void TurretTile::set_position(int x, int y)
