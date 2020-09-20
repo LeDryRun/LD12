@@ -3,10 +3,14 @@
 #include "../input/Keyblade.hpp"
 #include "../image/Imagehandler.hpp"
 #include "../tilemap/Tilemap.hpp" 
+#include "../tilemap/UtilityMap.hpp"
+#include "../tilemap/TurretTile.hpp"
+#include "../tilemap/UtilityTile.hpp"
+#include "../tilemap/ResourceTile.hpp"
 #include <math.h>
 
 
-Tower_Player::Tower_Player():valid("valid"),invalid("invalid"),reticule("reticule"),bullet("Effects_Attack"){
+Tower_Player::Tower_Player():valid("valid"),invalid("invalid"),reticule("reticule"),bullet("Effects_Attack"),wrench("Effects_Build"){
 	set_state_of_origin("tower_state");
 	gravity_acceleration=-1.6f;
 	jump_impulse=16;
@@ -22,6 +26,7 @@ void Tower_Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		}else{
 			target.draw(invalid.get_current_frame());
 		}
+		target.draw(wrench.get_current_frame());
 	}else{
 		target.draw(bullet.get_current_frame());
 	}
@@ -47,15 +52,20 @@ void Tower_Player::load_animations(Imagehandler& imagehandler){
 	imagehandler.load_animation(invalid);
 	imagehandler.load_animation(reticule);
 	imagehandler.load_animation(bullet);
+	imagehandler.load_animation(wrench);
 	valid.set_looping(true);
 	invalid.set_looping(true);
 	reticule.set_looping(true);
 	bullet.set_looping(true);
+	wrench.set_looping(true);
+	wrench.set_desired_fps(5);
 }
 
 
-void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard){
+void Tower_Player::update(Tilemap&  tilemap, UtilityMap& utility_map, Mousey&  mouse, Keyblade& keyboard){
 
+	std::cout << "Player: " << position.get_x() << std::endl;
+if(!lock_controls){
 	if(keyboard.get_key('e').was_just_pressed()){
 		if(mode=="shooting"){
 			mode="placing";
@@ -91,14 +101,21 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 			if(grounded){
 				Point distance_to_mouse=mouse_coords-current_tile;
 				if(distance_to_mouse.get_x()<5 && distance_to_mouse.get_x()>-5 &&distance_to_mouse.get_y()<5&& distance_to_mouse.get_y()>-5){
-					if(tilemap.get_tile(mouse_coords).get_type_s()=="empty"){
+					if(tilemap.get_tile(mouse_coords).get_type_s()=="empty" && utility_map.get_tile(mouse_coords).get_tile_type()==kNone){
 						placing_valid=true;
 						if(mouse.is_clicked()){
 							build_timer=build_timer_max;
-							tilemap.set_tile_type(mouse_coords,"wall");
+							if(tile_building=="wall"){
+								tilemap.set_tile_type(mouse_coords,"wall");
+							}else if(tile_building=="turret"){
+								utility_map.set_utility(mouse_coords,new TurretTile);
+							}else if(tile_building=="resource"){
+								utility_map.set_utility(mouse_coords,new ResourceTile);
+							}
 						}
 					}else if(mouse.is_right_clicked()){
 						tilemap.set_tile_type(mouse_coords,"empty");
+						utility_map.set_utility(mouse_coords,new UtilityTile);
 					}
 				}
 			}		
@@ -109,15 +126,17 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 	movement=Point(0,0);
 	Point dir=Point(0,0);
 	wall_slide=false;
-	if(keyboard.get_key('w').is_pressed()){
-		//std::cout<<"W"<<std::endl;
-		//dir=Cardinal::North;
-		//movement=movement+(dir*speed);
+	if(keyboard.get_key('1').was_just_pressed()){
+		tile_building="wall";
 	}
-	if(keyboard.get_key('s').is_pressed()){
-		//std::cout<<"s"<<std::endl;
-		//dir=Cardinal::South;
-		//movement=movement+(dir*speed);
+	if(keyboard.get_key('2').was_just_pressed()){
+		tile_building="turret";
+	}
+	if(keyboard.get_key('3').was_just_pressed()){
+		tile_building="resource";
+	}
+	if(keyboard.get_key('4').was_just_pressed()){
+
 	}
 	wall_slide=false;
 	if(keyboard.get_key('a').is_pressed()){
@@ -253,5 +272,8 @@ void Tower_Player::update(Tilemap&  tilemap, Mousey&  mouse, Keyblade& keyboard)
 		}
 	}
 	bullet.set_position(bullet_position);
+	wrench.set_position(bullet_position);
 	bullet.animate();
+	wrench.animate();
+}
 }
