@@ -33,7 +33,7 @@ void Bullet::update(Tilemap& tilemap){
 
 }
 void Bullet::load_animations(Imagehandler& imagehandler){
-	animations.push_back(Animation("bullet"));
+	animations.push_back(Animation("Effects_Attack"));
 	animations.push_back(Animation("bullet_impact"));
 	imagehandler.load_animation(animations.at(0));
 	imagehandler.load_animation(animations.at(1));

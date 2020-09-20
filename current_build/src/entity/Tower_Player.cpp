@@ -6,7 +6,7 @@
 #include <math.h>
 
 
-Tower_Player::Tower_Player():valid("valid"),invalid("invalid"),reticule("reticule"),bullet("bullet"){
+Tower_Player::Tower_Player():valid("valid"),invalid("invalid"),reticule("reticule"),bullet("Effects_Attack"){
 	set_state_of_origin("tower_state");
 	gravity_acceleration=-1.6f;
 	jump_impulse=16;
