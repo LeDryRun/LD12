@@ -8,6 +8,8 @@ Flier_Enemy::Flier_Enemy()
     position.set_y(position.get_y() + hitbox.get_center_y());
 
     // Initialize members
+    utilities = &UtilityMap();
+    
     move_type = EMT_FLIER;
     combat_type = ECT_SHOOTER;
 
@@ -27,6 +29,8 @@ Flier_Enemy::Flier_Enemy()
 Flier_Enemy::Flier_Enemy(const Flier_Enemy &original)
 {
     // Initialize members
+    utilities = original.utilities;
+
     move_type = original.move_type;
     combat_type = original.combat_type;
 
@@ -43,31 +47,56 @@ Flier_Enemy::Flier_Enemy(const Flier_Enemy &original)
     leash_range = original.leash_range;
 }
 
+Flier_Enemy::Flier_Enemy(UtilityMap &utilities_ref)
+{
+    // Center position in relation to hitbox
+    position.set_x(position.get_x() + hitbox.get_center_x());
+    position.set_y(position.get_y() + hitbox.get_center_y());
+
+    // Initialize members
+    utilities = &utilities_ref;
+
+    move_type = EMT_FLIER;
+    combat_type = ECT_SHOOTER;
+
+    max_HP = 100;
+    HP = max_HP;
+
+    dmg = 5;
+    spd = 10;
+
+    enemy_awake = true;
+
+    state = SPAWN;
+    scan_range = 128;
+    leash_range = 64;
+}
+
 void Flier_Enemy::update() 
 {
     if (!enemy_awake)
         return;
 
-    // Always donw if awake
+    // Always done if awake
     // add time to cooldown timer, or reset
 
     // Specific AI actions
     switch (state) 
     {
         case SPAWN:
-            target = Point(640, 360);
+            target = Point(1216, 640);
             if (scan_for_player())
             {
                 state = ATTACK_PLAYER;
                 break;
             }
-            if (scan_for_utility())
+            else if (scan_for_utility())
             {
                 // Set targeted utility
                 state = ATTACK_UTILITY;
                 break;
             }
-            if (move_to_target())
+            else if (move_to_target())
             {
                 state = UTILITY_SEARCH;
                 break;
@@ -79,7 +108,7 @@ void Flier_Enemy::update()
                 state = ATTACK_PLAYER;
                 break;
             }
-            if (scan_for_utility())
+            else if (scan_for_utility())
             {
                 // Set targeted utility
                 state = ATTACK_UTILITY;
@@ -169,4 +198,10 @@ void Flier_Enemy::shoot_at(Point target)
 
     tmp.dmg = dmg;
     */
+}
+
+void Flier_Enemy::kill()
+{
+    state = DEAD;
+    Enemy_Base::kill();
 }

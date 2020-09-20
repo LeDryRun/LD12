@@ -3,6 +3,8 @@
 
 Enemy_Base::Enemy_Base()
 {
+    utilities = &UtilityMap();
+
     move_type = EMT_NONE;
     combat_type = ECT_NONE;
 
@@ -15,11 +17,10 @@ Enemy_Base::Enemy_Base()
     enemy_awake = false;
 }
 
-Enemy_Base::Enemy_Base(Point p)
+Enemy_Base::Enemy_Base(UtilityMap &utilities_ref)
 {
-    //printf("Hitbox exists @ %p", &hitbox);
-    /*
-    utility_layer = get_utility layer_from_tower_state
+    utilities = &utilities_ref;
+
     move_type = EMT_NONE;
     combat_type = ECT_NONE;
 
@@ -30,11 +31,12 @@ Enemy_Base::Enemy_Base(Point p)
     spd = 0;
 
     enemy_awake = false;
-    */
 }
 
 Enemy_Base::Enemy_Base(const Enemy_Base &original)
 {
+    utilities = original.utilities;
+
     move_type = original.move_type;
     combat_type = original.combat_type;
 
@@ -45,4 +47,9 @@ Enemy_Base::Enemy_Base(const Enemy_Base &original)
     spd = original.spd;
 
     enemy_awake = original.enemy_awake;
+}
+
+void Enemy_Base::kill()
+{
+    // Do dead body object and resource cleanup
 }

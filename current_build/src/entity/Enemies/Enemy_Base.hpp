@@ -1,7 +1,8 @@
 #ifndef ENEMY_BASE
 #define ENEMY_BASE
 
-#include "../Tilemap_Entity.hpp"
+#include <math.h>
+#include "../../tilemap/UtilityMap.hpp"
 #include "../Entity.hpp"
 
 
@@ -19,7 +20,7 @@ enum ENEMY_COMBAT_TYPE {
     ECT_NONE,
 
     ECT_SHOOTER,
-    ECT_RAMMER,
+    ECT_STABBER,
 
     ECT_NUM_STATES
 };
@@ -27,7 +28,7 @@ enum ENEMY_COMBAT_TYPE {
 class Enemy_Base : public Entity
 {
     protected:
-        //Tilemap &utility_layer; // In preparation for Andrew's work
+        UtilityMap *utilities; // In preparation for Andrew's work
 
         ENEMY_MOVEMENT_TYPE move_type;
         ENEMY_COMBAT_TYPE combat_type;
@@ -40,15 +41,15 @@ class Enemy_Base : public Entity
        
     public:
         Enemy_Base();
-        Enemy_Base(Point p);
         Enemy_Base(const Enemy_Base &original);
+        Enemy_Base(UtilityMap &utilities_ref);
 
         ENEMY_MOVEMENT_TYPE get_movement_type() { return move_type; };
         void set_movement_type(ENEMY_MOVEMENT_TYPE type) { move_type = type; };
         ENEMY_COMBAT_TYPE get_combat_type() { return combat_type; };
         void set_combat_type(ENEMY_COMBAT_TYPE type) { combat_type = type; };
         int get_max_HP() { return max_HP; };
-        void set_max_HP(int new_max_HP) { max_HP = abs(new_max_HP); }; // NEgative max HP has no meaning
+        void set_max_HP(int new_max_HP) { max_HP = abs(new_max_HP); }; // Negative max HP has no meaning
         int get_HP() { return HP; };
         void set_HP(int new_HP) { HP = new_HP; }; // Does not validate if HP falls within [0, max_HP]
         int get_dmg() { return dmg; };
@@ -60,7 +61,7 @@ class Enemy_Base : public Entity
         void toggle_awake() { enemy_awake != enemy_awake; };
 
         virtual void update() {};
-        virtual void kill() {};
+        virtual void kill();
 };
 
 #endif // !ENEMY_BASE
