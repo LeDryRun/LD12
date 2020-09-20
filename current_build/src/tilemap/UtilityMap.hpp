@@ -45,16 +45,16 @@ public:
 	void set_length_y(int i_p) { length_y = i_p; }
 
 	Point get_position() { return position; }
-	/*void set_position(Point p_p) {
+
+	void set_position(Point p_p) {
 		position = p_p;
 		setPosition(position.get_x(), position.get_y());
 		for (int i = 0; i < length_x; i++) {
 			for (int j = 0; j < length_y; j++) {
-				ref_tile(i, j).ref_hitbox().set_position(position.get_x() + tileset.get_tile_width()*i, position.get_y() + tileset.get_tile_height()*j);
+				ref_tile(i, j).set_position(position.get_x() + tileset.get_tile_width()*i, position.get_y() + tileset.get_tile_height()*j);
 			}
 		}
 	}
-	*/
 	Tileset get_tileset() { return tileset; }
 
 	//Origin is at top left corner of tile map

@@ -1,5 +1,6 @@
 #include "UtilityTile.hpp"
 #include "TurretTile.hpp"
+#include "ResourceTile.hpp"
 #include <iostream>
 
 void UtilityTile::draw(sf::RenderTarget & target, sf::RenderStates states) const
@@ -74,6 +75,11 @@ void UtilityTile::set_position(int x, int y)
 	m_map_y = y;
 }
 
+std::string UtilityTile::to_string()
+{
+	return "Type: " + std::to_string(tile_type);
+}
+
 UtilityTile* UtilityTile::load(int x_p, int y_p, Tileset tileset_p, std::string load_p) {
 	int tile_type = kNone;
 	int map_x, map_y;
@@ -127,6 +133,9 @@ UtilityTile* UtilityTile::load(int x_p, int y_p, Tileset tileset_p, std::string 
 		break;
 	case kTurret:
 		tile = new TurretTile();
+		break;
+	case kResourceGenerator:
+		tile = new ResourceTile();
 		break;
 	default:
 		tile = new UtilityTile();

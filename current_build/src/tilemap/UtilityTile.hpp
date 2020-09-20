@@ -45,6 +45,7 @@ public:
 	virtual void set_solid(bool b_p);
 	virtual void set_sprite(sf::Sprite sprite);
 	virtual void set_position(int x, int y);
+	virtual std::string to_string();
 
 };
 

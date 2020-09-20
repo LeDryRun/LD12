@@ -5,8 +5,7 @@
 
 UtilityMap::UtilityMap()
 {
-	position.set_x(500);
-	position.set_y(300);
+
 }
 
 UtilityMap::~UtilityMap()
@@ -43,6 +42,7 @@ UtilityTile * UtilityMap::get_tile_from_coordiante(int x_p, int y_p)
 
 void UtilityMap::set_utility(Point coordinate, UtilityTile* new_utility)
 {
+
 	int index = coordinate.get_x() + coordinate.get_y()*length_x;
 
 	if (index > utility_map.size() || index < 0)
@@ -126,6 +126,9 @@ void UtilityMap::load_from_file(std::string file_p)
 
 					int tu = (tile_type % tileset.get_size_x());
 					int tv = (tile_type / tileset.get_size_x());					
+
+					if (tile_type == kResourceGenerator)
+						std::cout << tu;
 
 					utility_map.at(i + j * length_x)->set_sprite(sf::Sprite(tile_texture, sf::IntRect(tu*tileset.get_tile_width(), tv*tileset.get_tile_height(), tileset.get_tile_width(), tileset.get_tile_height())));
 					utility_map.at(i + j * length_x)->set_position(i * tileset.get_tile_width() + position.get_x(), j*tileset.get_tile_height() + position.get_y());
