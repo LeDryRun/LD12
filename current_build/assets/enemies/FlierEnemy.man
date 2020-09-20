@@ -1,0 +1,1 @@
+flier_idle:32x32,1r1c,1f
