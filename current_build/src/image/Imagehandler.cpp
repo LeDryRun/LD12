@@ -44,6 +44,7 @@ void Imagehandler::load(){
 
 	Tilemap::add_tileset("../assets/Pac-Man/tilesets/pac_man_tiles","pac_man_tiles");
 	Tilemap::add_tileset("../assets/image/tilesets/tower_tileset","tower_tileset");
+	Tilemap::add_tileset("../assets/image/tilesets/tower_tileset","tower_tileset_utility");
 
 	load_animation_sheet("../assets/Pac-Man/animations/pac_man_all");
 	load_animation_sheet("../assets/image/animations/bullet");
