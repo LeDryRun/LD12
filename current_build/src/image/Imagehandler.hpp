@@ -18,11 +18,13 @@ private:
 	sf::Texture error_texture;
 	Animation_Sheet error_animation;
 
+	//Animation_Sheet pac_man;
+	//Animation_Sheet ghosts;
+	//Animation_Sheet pac_man_dies;
+
 	sf::Texture menu_background;
 	sf::Texture core_game_background;
 
-	sf::Texture lizerd;
-	sf::Texture hotbar;
 
 	sf::Texture text_input_box;
 	sf::Texture text_input_cursor;
